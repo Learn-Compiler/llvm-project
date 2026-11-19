@@ -1878,6 +1878,22 @@ def HasCheriot
       AssemblerPredicate<(all_of FeatureVendorXCheriot), "'XCheriot' (CHERIoT Extension)">;
 
 //===----------------------------------------------------------------------===//
+// Vortex Extensions
+//===----------------------------------------------------------------------===//
+// 增加 Vortex 扩展定义 
+// * RISCVExtension<1, 0, "Vortex SIMT extension"> : TablenGen会把FeatureVendorXVortex截取
+// 出 extName = "XVortex", 自动转换为小写拓展名xvortex，版本号为1.0, 即-xvortex1.0
+// * HasVendorXVortex: 在C++中生成Subtarget->hasVendorXVortex()方法，用于后续条件判定和汇编谓词
+//===----------------------------------------------------------------------===//
+def FeatureVendorXVortex
+    : RISCVExtension<1, 0, "Vortex SIMT extension">;
+def HasVendorXVortex
+    : Predicate<"Subtarget->hasVendorXVortex()">,
+      AssemblerPredicate<(all_of FeatureVendorXVortex), "'XVortex' (Vortex SIMT extensions)">;
+
+
+
+//===----------------------------------------------------------------------===//
 // LLVM specific features and extensions
 //===----------------------------------------------------------------------===//
 

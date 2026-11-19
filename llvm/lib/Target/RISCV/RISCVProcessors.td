@@ -1137,4 +1137,28 @@ def XUANTIE_C920V2 : RISCVProcessorModel<"xt-c920v2",
                                             FeatureUnalignedScalarMem]),
                                          [TuneVXRMPipelineFlush,
                                           TunePostRAScheduler]>;
+//===----------------------------------------------------------------------===//
+// Vortex GPGPU Processor
+//===----------------------------------------------------------------------===//
+// * 处理器名字设为“vortex”
+// * 调度模型选RocketModel（成熟的顺序流水线模型，CompleteModel = false, 遇到尚未建模
+//   的自定义指令不会报错，非常稳妥）
+// * 特性列表完全对齐SimX当前的RV64默认硬件基线：
+//    * 64Bit, I, M, F, D (双精度浮点)
+//    * Zisr, Zifencei 
+//    * Zicond(条件置零，Vortex默认开启)
+//    * FeatureVendorXVortex 
+//===----------------------------------------------------------------------===//
+def VORTEX : RISCVProcessorModel<"vortex",
+                                RocketModel,
+                                [Feature64Bit,
+                                FeatureStdExtI,
+                                FeatureStdExtM,
+                                FeatureStdExtF,
+                                FeatureStdExtD,
+                                FeatureStdExtZicsr,
+                                FeatureStdExtZifencei,
+                                FeatureStdExtZicond,
+                                FeatureVendorXVortex]>;
+
 // clang-format on
